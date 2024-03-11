@@ -1,28 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import Flashcard from "./Flashcard";
 
-import bluejay from "../audio/bluejay.mp3";
-import americanrobin from "../audio/americanrobin.mp3";
-import greathornedowl from "../audio/greathornedowl.mp3";
-import northernflicker from "../audio/northernflicker.mp3";
-import northerncardinal from "../audio/northerncardinal.mp3";
+import americanrobinAudio from "../audio/americanrobin.mp3";
+import bluejayAudio from "../audio/bluejay.mp3";
+import greathornedowlAudio from "../audio/greathornedowl.mp3";
+import northerncardinalAudio from "../audio/northerncardinal.mp3";
+import northernflickerAudio from "../audio/northernflicker.mp3";
+
 
 function FlashcardList() {
     console.debug("FlashcardList")
-    let birds = [greathornedowl, northernflicker, americanrobin, bluejay, northerncardinal];
-    // is flipped useState to show one side (kind of like the applied feature)
+    
+    const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
-    function playBirdCall(bird) {
-        console.debug("playBirdCall", "bird=", bird);
-        new Audio(bird).play();
+    const birds = [
+        { name: "American Robin", audio: americanrobinAudio},
+        { name: "Blue Jay", audio: bluejayAudio},
+        { name: "Great Horned Owl", audio: greathornedowlAudio },
+        { name: "Northern Cardinal", audio: northerncardinalAudio },
+        { name: "Northern Flicker", audio: northernflickerAudio }
+    ];
+
+    function handleNextCard() {
+        setCurrentCardIndex(currentCardIndex + 1);
     }
+
     return (
         <div className="FlashcardList">
-            { birds.map(bird => (
-                <button onClick={() => playBirdCall(bird)}>Play Call</button>
-            )) }
-            
+            <div className="flashcard-container">
+                <Flashcard bird={birds[currentCardIndex]} onNext={handleNextCard} /> 
+            </div>
         </div>
-    )
+    );
 }
 
 export default FlashcardList;

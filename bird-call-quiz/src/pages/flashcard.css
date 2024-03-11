@@ -1,0 +1,48 @@
+.flashcard {
+    width: 200px;
+    height: 300px;
+    perspective: 1000px;
+    /* perspective is the distance between the user and z=0 plane. */
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.flashcard.flipped {
+    transform: rotateY(180deg);
+}
+
+.flashcard-inner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+}
+
+.flashcard-front, .flashcard-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    /* backface-visibility defines whether the back of the element should be visible  */
+}
+
+.flashcard-front {
+    background-color: lightyellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flashcard-back {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateY(180deg);
+}
+
+.next-card-btn {
+    background-color: pink;
+    position: absolute;
+    bottom: 10px;
+}

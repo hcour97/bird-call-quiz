@@ -5,3 +5,9 @@
 .link {
   text-decoration: none;
 }
+
+.FlashcardList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
