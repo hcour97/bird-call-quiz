@@ -7,21 +7,38 @@ function Flashcard({ birdSpecies, onNext }) {
     console.debug("Flashcard", "birdSpecies=", birdSpecies);
 
    const audioRef = useRef(null);  // useRef() is a React Hook that lets you reference the value that is not needed for rendering.
-   const flipTimeoutRef = useRef();
+//    const flipTimeoutRef = useRef();
    const [isFlipped, setIsFlipped] = useState(false);
-   const [nextCard, setNextCard] = useState(null);
+   const [isLoading, setIsLoading] = useState(false);
+//    const [nextCard, setNextCard] = useState(null);
 
    // useEffect to reset flip state when the flashcard changes
-   useEffect(() => {
-    if (nextCard) {
-        setIsFlipped(false);
-        clearTimeout(flipTimeoutRef.current);
-        flipTimeoutRef.current = setTimeout(() => {
-            onNext();
-        }, 100); // ensure card is fully rendered before flipping
-    }
+//    useEffect(() => {
+//     if (nextCard) {
+//         setIsFlipped(false);
+//         clearTimeout(flipTimeoutRef.current);
+//         flipTimeoutRef.current = setTimeout(() => {
+//             onNext();
+//         }, 100); // ensure card is fully rendered before flipping
+//     }
 
-   }, [nextCard, onNext]);
+//    }, [nextCard, onNext]);
+
+    // useEffect(() => {
+    //     // reset flip when birdSpecies changes
+    //     // so that backside of the next card remains hidden
+    //     setIsFlipped(false);
+    // }, [birdSpecies]);
+
+    // useEffect(() => {
+    //     // flip the card after a brief delay, when loading is complete
+    //     if (!isLoading && isFlipped) {
+    //         const flipTimeout = setTimeout(() => {
+    //             setIsFlipped(false);
+    //         }, 100);
+    //         return () => clearTimeout(flipTimeout);
+    //     }
+    // }, [isLoading, isFlipped]);
     
     function playBirdCall(url) {
         console.debug("playBirdCall", "birdSpecies=", birdSpecies);
@@ -47,21 +64,23 @@ function Flashcard({ birdSpecies, onNext }) {
 
     const handleNextCard = () => {
         console.debug("Flashcard", "handleNextCard", "onNext")
-            onNext();
+        setIsLoading(true);
+        onNext();
         } 
     
     return (
         <div className={`flashcard ${isFlipped ? 'flipped' : ''}`} onClick={handleFlip}>
-            <div className = "flashcard-inner">
-                
-                <div className="flashcard-front" >
-                    <AudioAPI birdSpecies={birdSpecies} playBirdCall={playBirdCall} />
+
+                <div className = "flashcard-inner">
+                    <div className="flashcard-front" >
+                        <AudioAPI birdSpecies={birdSpecies} playBirdCall={playBirdCall} />
+                    </div>
+                    <div className={`flashcard-back ${isLoading ? 'hidden' : ''}`}>
+                        {birdSpecies}
+                        <button className="next-card-btn" onClick={handleNextCard}>Next Card</button>
+                    </div>
                 </div>
-                <div className="flashcard-back">
-                    {birdSpecies}
-                    <button className="next-card-btn" onClick={handleNextCard}>Next Card</button>
-                </div>
-            </div>
+
         </div>
     )
 }
