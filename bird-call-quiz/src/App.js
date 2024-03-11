@@ -9,12 +9,11 @@ function App() {
   console.debug("App");
 
   return (
-    // <BrowserRouter>
-    //     <div className="App">
-    //           <AppRoutes />
-    //     </div>
-    // </BrowserRouter>
-    <AudioAPI />
+    <BrowserRouter>
+        <div className="App">
+              <AppRoutes />
+        </div>
+    </BrowserRouter>
   );
 }
 

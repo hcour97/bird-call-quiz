@@ -1,57 +1,51 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function AudioAPI() {
-    const [birdSounds, setBirdSounds] = useState(null);
-
-    // const speciesList = ["American Robin",  "Blue Jay", "Great Horned Owl", "Northern Cardinal", "Northern Flicker", ]
+function AudioAPI({ birdSpecies, playBirdCall }) {
+    console.debug("Audio API", "birdSpecies=", birdSpecies);
+    const [birdSound, setBirdSound] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchBirdSounds = async () => {
+        const fetchBirdCall = async () => {
             try {
-            const speciesList = ["American Robin",  "Blue Jay", "Great Horned Owl", "Northern Cardinal", "Northern Flicker", ]
-                const promises = speciesList.map(async species => {
-                    const response = await axios.get(`https://xeno-canto.org/api/2/recordings?query=${encodeURIComponent(species)}+q:A`);
-                    return response.data.recordings[0];
-                });
-                const birdSoundsData = await Promise.all(promises);
-                setBirdSounds(birdSoundsData);
+                const response = await axios.get(`https://xeno-canto.org/api/2/recordings?query=${encodeURIComponent(birdSpecies)}+q:A`);
+                const recording = response.data.recordings[0]; // only get the first recording
 
+                console.log("recording=", recording) 
+                setBirdSound(recording);
+                setLoading(false);
             } catch (error) {
-                console.error('Error fetchng data:', error)
+                console.error('Error fetchng data:', error);
+                setError("Error fetching bird call");
+                setLoading(false);
             }
         };
-        fetchBirdSounds();
-    }, []); // runs once when the component mounts
+        fetchBirdCall();
+    }, [birdSpecies]); // runs once when the component mounts and when birdSpecies changes
 
-    function playSound(url) {
-        const audio = new Audio(url);
-        audio.play();
-    };
 
-    if (birdSounds === null || birdSounds.length === 0) {
+    if (loading) {
         return <div>Loading...</div>
+    }
+
+    if (error) {
+        return <div>{error}</div>
+    }
+
+    if (!birdSound) {
+        return <div>No bird sound found.</div>
     }
     
     return (
         <div>
-            <h1>Bird Calls</h1>
-            <ul>
-                {birdSounds.map(sound => (
-                    <li key={sound.id}>
-                        <div>Species: {sound.en}</div>
-                        <div>Country: {sound.cnt}</div>
-                        <div>
-                            URL: <button onClick={() => playSound(sound.file)}>Listen</button>
-                        </div>
-                        <div>License: <a href={sound.lic}>CC BY-NC-SA 4.0</a></div>
-                    </li>
-                ))}
-            </ul>
-        </div>
-        
-
-        
+                <div key={birdSound.id}>
+                    <div>
+                        <button className="play-button" onClick={() => playBirdCall(birdSound.file)}>{'\u25B6'}</button>
+                    </div>
+                </div>
+        </div> 
     )
 }
 

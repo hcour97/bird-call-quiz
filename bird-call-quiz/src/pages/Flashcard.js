@@ -1,19 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
+import AudioAPI from "./AudioAPI";
 
 import "./flashcard.css";
 
-function Flashcard({ bird, onNext }) {
-    console.debug("Flashcard");
-    // is flipped useState to show one side
+function Flashcard({ birdSpecies, onNext }) {
+    console.debug("Flashcard", "birdSpecies=", birdSpecies);
 
-    // setAudio taking too long to setState, therefore audio never times out 
-    //const [audio, setAudio] = useState(null);
-
-    // useRef() is a React Hook that lets you reference the value that is not needed for rendering.
-
-   const audioRef = useRef(null);
+   const audioRef = useRef(null);  // useRef() is a React Hook that lets you reference the value that is not needed for rendering.
    const flipTimeoutRef = useRef();
-   
    const [isFlipped, setIsFlipped] = useState(false);
    const [nextCard, setNextCard] = useState(null);
 
@@ -29,40 +23,42 @@ function Flashcard({ bird, onNext }) {
 
    }, [nextCard, onNext]);
     
-    function playBirdCall(event) {
-        console.debug("playBirdCall", "bird=", bird);
-        event.stopPropagation(); // stops the card from flipping when play button is pressed.
-        const newAudio = new Audio(bird.audio);
+    function playBirdCall(url) {
+        console.debug("playBirdCall", "birdSpecies=", birdSpecies);
+        // event.stopPropagation(); // event does not exist anymore // stops the card from flipping when play button is pressed.
+        const newAudio = new Audio(url);
         audioRef.current = newAudio;
         newAudio.play();
         setTimeout(() => {
             if (audioRef.current) {
-                console.log("audio in timeout loop now");
+                console.log("audio in 5s timeout loop now");
                 audioRef.current.pause();
                 audioRef.current.currentTime = 0;
             }
         }, 5000);
+
     }
 
-    function handleFlip() {
-        setIsFlipped(!isFlipped);
+    function handleFlip(event) {
+        if (!event.target.classList.contains('play-button')) {
+            setIsFlipped(!isFlipped);
+        }
     }
 
-    const handleNextCard = (event) => {
-        event.stopPropagation(); // stop from displaying the backside of the nextcard
-        if (bird && bird.name) {
-            setNextCard(true);
+    const handleNextCard = () => {
+        console.debug("Flashcard", "handleNextCard", "onNext")
+            onNext();
         } 
-    }
-
+    
     return (
         <div className={`flashcard ${isFlipped ? 'flipped' : ''}`} onClick={handleFlip}>
             <div className = "flashcard-inner">
+                
                 <div className="flashcard-front" >
-                    <button onClick={playBirdCall}> {'\u25B6'} </button>
+                    <AudioAPI birdSpecies={birdSpecies} playBirdCall={playBirdCall} />
                 </div>
                 <div className="flashcard-back">
-                    {bird.name}
+                    {birdSpecies}
                     <button className="next-card-btn" onClick={handleNextCard}>Next Card</button>
                 </div>
             </div>
