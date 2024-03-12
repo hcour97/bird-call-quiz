@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import LoadingPage from "../common/LoadingPage";
 
 function AudioAPI({ birdSpecies, playBirdCall }) {
     console.debug("Audio API", "birdSpecies=", birdSpecies);
@@ -27,7 +28,9 @@ function AudioAPI({ birdSpecies, playBirdCall }) {
 
 
     if (loading) {
-        return <div>Loading...</div>
+        return (
+            <LoadingPage />
+        )
     }
 
     if (error) {

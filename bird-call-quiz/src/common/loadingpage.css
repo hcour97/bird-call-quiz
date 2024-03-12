@@ -1,0 +1,12 @@
+.loading-container {
+    margin: 50px;
+    width: 400px;
+    height: 200px;
+}
+
+.loading-img {
+    width: 50%;
+    height: 50%;
+    display: relative;
+    position: flex;
+}

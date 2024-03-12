@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./homepage.css";
-import birdnerd from "../birdnerd.png";
+import birdnerd from "../images/birdnerd.png";
 
 function Homepage() {
     console.debug("Homepage")
@@ -15,7 +15,7 @@ function Homepage() {
       <header className="homepage-header">
         <img src={birdnerd} className="homepage-logo" alt="logo" />
         <p>
-          Ready to Name that Bird Call?
+          Ready to name that Bird Call?
         </p>
         <button onClick={handleStart}><Link to="/quiz" className="link">Start</Link></button>
       </header>

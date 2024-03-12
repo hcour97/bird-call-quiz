@@ -70,7 +70,6 @@ function Flashcard({ birdSpecies, onNext }) {
     
     return (
         <div className={`flashcard ${isFlipped ? 'flipped' : ''}`} onClick={handleFlip}>
-
                 <div className = "flashcard-inner">
                     <div className="flashcard-front" >
                         <AudioAPI birdSpecies={birdSpecies} playBirdCall={playBirdCall} />
