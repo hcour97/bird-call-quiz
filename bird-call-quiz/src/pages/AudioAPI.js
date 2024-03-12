@@ -26,7 +26,6 @@ function AudioAPI({ birdSpecies, playBirdCall }) {
         fetchBirdCall();
     }, [birdSpecies]); // runs once when the component mounts and when birdSpecies changes
 
-
     if (loading) {
         return (
             <LoadingPage />

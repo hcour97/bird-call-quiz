@@ -5,7 +5,7 @@ function FlashcardList() {
     console.debug("FlashcardList")
     
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
-    const birdSpecies = ["american robin", "Blue Jay", "Great Horned Owl", "Northern Cardinal", "Northern Flicker"];
+    const birdSpecies = ["american robin", "Blue Jay", "Barn Owl", "Northern Cardinal", "Northern Flicker"];
 
     function handleNextCard() {
         setCurrentCardIndex(currentCardIndex + 1);
