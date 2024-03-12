@@ -26,11 +26,9 @@ function Homepage() {
         <form className="location-form" onSubmit={handleSubmit}>
             <label htmlFor="location">Choose a region in the United States:</label>
             <select name="location" id="location" onChange={handleChange}>
-              <option value="northeast">Northeast</option>
-              <option value="southwest">Southwest</option>
-              <option value="west">West</option>
-              <option value="southeast">Southeast</option>
-              <option value="midwest">Midwest</option>
+              <option value="backyardBirds">Backyard Birds</option>
+              <option value="eastern">Eastern</option>
+              <option value="western">Western</option>
             </select>
             Ready to name that Bird Call?
             <button type="submit" className="link">Start</button>

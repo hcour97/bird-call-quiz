@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Flashcard from "./Flashcard";
 import {shuffle} from "../helpers";
 
+import { backyardBirds, eastern, western } from "../common/birdSpecies";
+import Flashcard from "./Flashcard";
 import GameOver from "../pages/GameOver";
 
 function FlashcardList() {
     console.debug("FlashcardList")
 
     const location = useLocation();
-    const [region, setRegion] = useState("");
+    const [region, setRegion] = useState(backyardBirds);
+    const [birdSpecies, setBirdSpecies] = useState(null);
     
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [gameOver, setGameOver] = useState(false);
@@ -20,9 +22,20 @@ function FlashcardList() {
         if (regionParam) {
             setRegion(regionParam);
         }
+        if (region === "eastern") {
+        setBirdSpecies(eastern);
+        }
+
+        if (region === "western") {
+            setBirdSpecies(western);
+        }
+
+        if (region === "backyard birds") {
+            setBirdSpecies(backyardBirds);
+        }
     }, [location]);
 
-    const birdSpecies = shuffle(["american robin", "Blue Jay", "Barn Owl", "Northern Cardinal", "Northern Flicker"]);
+    
 
     function handleNextCard() {
         if (currentCardIndex < birdSpecies.length - 1) {
