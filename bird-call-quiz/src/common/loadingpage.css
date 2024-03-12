@@ -1,12 +1,21 @@
 .loading-container {
-    margin: 50px;
-    width: 400px;
-    height: 200px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
-.loading-img {
+.loading-text {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+/* .loading-img {
     width: 50%;
     height: 50%;
-    display: relative;
-    position: flex;
-}
+    z-index: 0;
+} */
