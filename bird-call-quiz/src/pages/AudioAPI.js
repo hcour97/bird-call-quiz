@@ -9,22 +9,33 @@ function AudioAPI({ birdSpecies, playBirdCall }) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        console.debug("fetchBirdCall with localStorage")
         const fetchBirdCall = async () => {
             try {
-                const response = await axios.get(`https://xeno-canto.org/api/2/recordings?query=${encodeURIComponent(birdSpecies)}+q:A`);
-                const recording = response.data.recordings[0]; // only get the first recording
+                // check if data is cached in localstorage, if it is use it
+                const cachedData = localStorage.getItem(birdSpecies);
+                if (cachedData) {
+                    setBirdSound(JSON.parse(cachedData));
+                    setLoading(false);
+                } else {
+                    // if it's not, get it from the API, then cache it to local storage
+                    const response = await axios.get(`https://xeno-canto.org/api/2/recordings?query=${encodeURIComponent(birdSpecies)}+q:A`);
+                    const recording = response.data.recordings[0];
 
-                console.log("recording=", recording) 
-                setBirdSound(recording);
-                setLoading(false);
+                    localStorage.setItem(birdSpecies, JSON.stringify(recording));
+                    console.log("recording=", recording);
+                    setBirdSound(recording);
+                    setLoading(false);
+                }
             } catch (error) {
-                console.error('Error fetchng data:', error);
+                console.error('Error fetching data:', error);
                 setError("Error fetching bird call");
                 setLoading(false);
             }
         };
         fetchBirdCall();
-    }, [birdSpecies]); // runs once when the component mounts and when birdSpecies changes
+    }, [birdSpecies]);
+
 
     if (loading) {
         return (
