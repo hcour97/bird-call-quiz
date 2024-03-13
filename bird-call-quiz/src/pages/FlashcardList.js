@@ -10,15 +10,15 @@ function FlashcardList() {
     console.debug("FlashcardList");
 
     const location = useLocation();
+
     const [region, setRegion] = useState("backyardBirds"); // default state
     const [birdSpecies, setBirdSpecies] = useState(null);
-    console.debug("FlashcardList", "region=", region, "birdSpecies=", birdSpecies); 
-    // region is returning the array... not the name of the array
-    // birdSpecies is returning null
-    
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [gameOver, setGameOver] = useState(false);
+    const [currentScore, setCurrentScore] = useState(50);
+    const [highestScore, setHighestScore] = useState(0);
 
+    // get quiz region from URL params
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         const regionParam = searchParams.get('region');
@@ -27,8 +27,8 @@ function FlashcardList() {
         }
     }, [location]);
 
+    // find appropriate bird species list based on the selected region
     useEffect(() => {
-        // set bird species based on the selected region
         switch (region) {
             case "eastern":
                 setBirdSpecies(shuffle(eastern));
@@ -43,9 +43,31 @@ function FlashcardList() {
         }
     });
 
+    useEffect(() => {
+        // on component mount, retrieve highest score from localStorage
+        const storedHighestScore = localStorage.getItem('highestScore');
+        if (storedHighestScore !== null) {
+            setHighestScore(parseInt(storedHighestScore));
+        }
+    })
+
+    useEffect(() => {
+        // update highest score in localStorage if current score beats it
+        if (currentScore > highestScore) {
+            localStorage.setItem('highestScore', currentScore.toString());
+            setHighestScore(currentScore);
+        }
+    }, [currentScore, highestScore]);
+
+    function handleCorrectAnswer() {
+        setCurrentScore(currentScore + 10);
+    }
+    // move onto the next card, when no cards left, game over!
     function handleNextCard() {
         if (currentCardIndex < birdSpecies.length - 1) {
             setCurrentCardIndex(currentCardIndex + 1);
+        // if the correct answer button was pressed, increase score by 10
+            //handleCorrectAnswer();
         } else {
             setGameOver(true);
         }
@@ -54,13 +76,18 @@ function FlashcardList() {
     return (
         <div className="FlashcardList">
             <div className="flashcard-container">
+                
                 {birdSpecies !== null && (
                     console.log("FlashcardList", "birdSpecies=", birdSpecies[currentCardIndex]),
                     !gameOver && (
-                        <Flashcard birdSpecies={birdSpecies[currentCardIndex]} onNext={handleNextCard} />
+                        <div>
+                            <h3>current score: {currentScore}</h3>
+                            <h3>highest score: {highestScore}</h3>
+                            <Flashcard birdSpecies={birdSpecies[currentCardIndex]} onNext={handleNextCard} onCorrect={handleCorrectAnswer} />
+                        </div>
                     )
                 )}
-                {gameOver && <GameOver />}
+                {gameOver && <GameOver currentScore={currentScore} region={region} highestScore={highestScore}/>}
             </div>
         </div>
     );

@@ -45,3 +45,15 @@
     position: absolute;
     bottom: 10px;
 }
+
+.correct-answer {
+    position: absolute;
+    bottom: 75px;
+    left: 150px;
+}
+
+.incorrect-answer {
+    position: absolute;
+    bottom: 75px;
+    right: 150px;
+}

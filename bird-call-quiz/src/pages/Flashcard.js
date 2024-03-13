@@ -3,7 +3,7 @@ import AudioAPI from "./AudioAPI";
 
 import "./flashcard.css";
 
-function Flashcard({ birdSpecies, onNext }) {
+function Flashcard({ birdSpecies, onNext, onCorrect }) {
     console.debug("Flashcard", "birdSpecies=", birdSpecies);
 
    const audioRef = useRef(null);  // useRef() is a React Hook that lets you reference the value that is not needed for rendering.
@@ -55,7 +55,10 @@ function Flashcard({ birdSpecies, onNext }) {
                     </div>
                     <div className={`flashcard-back ${isLoading ? 'hidden' : ''}`}>
                         {birdSpecies}
-                        <button className="next-card-btn" onClick={handleNextCard}>Next Card</button>
+                        {/* <button className="next-card-btn" onClick={handleNextCard}>Next Card</button> */}
+                        <button className="correct-answer" onClick={() => {handleNextCard(); onCorrect();}}>{'\u2705'}</button>
+                        <button className="incorrect-answer" onClick={handleNextCard}>{'\u274c'}</button>
+
                     </div>
                 </div>
 
