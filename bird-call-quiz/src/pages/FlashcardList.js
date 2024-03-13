@@ -7,11 +7,14 @@ import Flashcard from "./Flashcard";
 import GameOver from "../pages/GameOver";
 
 function FlashcardList() {
-    console.debug("FlashcardList")
+    console.debug("FlashcardList");
 
     const location = useLocation();
-    const [region, setRegion] = useState(backyardBirds);
+    const [region, setRegion] = useState("backyardBirds"); // default state
     const [birdSpecies, setBirdSpecies] = useState(null);
+    console.debug("FlashcardList", "region=", region, "birdSpecies=", birdSpecies); 
+    // region is returning the array... not the name of the array
+    // birdSpecies is returning null
     
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [gameOver, setGameOver] = useState(false);
@@ -22,20 +25,23 @@ function FlashcardList() {
         if (regionParam) {
             setRegion(regionParam);
         }
-        if (region === "eastern") {
-        setBirdSpecies(eastern);
-        }
-
-        if (region === "western") {
-            setBirdSpecies(western);
-        }
-
-        if (region === "backyard birds") {
-            setBirdSpecies(backyardBirds);
-        }
     }, [location]);
 
-    
+    useEffect(() => {
+        // set bird species based on the selected region
+        switch (region) {
+            case "eastern":
+                setBirdSpecies(shuffle(eastern));
+                break;
+            case "western":
+                setBirdSpecies(shuffle(western));
+                break;
+            case "backyardBirds":
+            default:
+                setBirdSpecies(shuffle(backyardBirds));
+                break;
+        }
+    });
 
     function handleNextCard() {
         if (currentCardIndex < birdSpecies.length - 1) {
@@ -48,9 +54,11 @@ function FlashcardList() {
     return (
         <div className="FlashcardList">
             <div className="flashcard-container">
-                {console.log("FlashcardList", "birdSpecies=", birdSpecies[currentCardIndex])} 
-                {!gameOver && (
-                    <Flashcard birdSpecies={birdSpecies[currentCardIndex]} onNext={handleNextCard} />
+                {birdSpecies !== null && (
+                    console.log("FlashcardList", "birdSpecies=", birdSpecies[currentCardIndex]),
+                    !gameOver && (
+                        <Flashcard birdSpecies={birdSpecies[currentCardIndex]} onNext={handleNextCard} />
+                    )
                 )}
                 {gameOver && <GameOver />}
             </div>
