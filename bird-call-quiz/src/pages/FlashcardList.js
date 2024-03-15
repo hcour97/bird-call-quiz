@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {shuffle} from "../helpers";
 
 import { backyardBirds, eastern, western } from "../common/birdSpecies";
 import Flashcard from "./Flashcard";
-import GameOver from "../pages/GameOver";
+import GameOver from "./GameOver";
 
 function FlashcardList() {
     console.debug("FlashcardList");
 
+    const navigate = useNavigate();
     const location = useLocation();
 
     const [region, setRegion] = useState("backyardBirds"); // default state
     const [birdSpecies, setBirdSpecies] = useState(null);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [currentScore, setCurrentScore] = useState(50);
+    const [currentScore, setCurrentScore] = useState(0);
     const [highestScore, setHighestScore] = useState(0);
 
     // get quiz region from URL params
@@ -73,16 +74,22 @@ function FlashcardList() {
         }
     }
 
+    function toHomepage() {
+        navigate("/");
+    }
+
     return (
         <div className="FlashcardList">
             <div className="flashcard-container">
-                
+            <button className="button-format" onClick={toHomepage}>{'\u2302'}</button>
                 {birdSpecies !== null && (
                     console.log("FlashcardList", "birdSpecies=", birdSpecies[currentCardIndex]),
                     !gameOver && (
                         <div>
-                            <h3>current score: {currentScore}</h3>
-                            <h3>highest score: {highestScore}</h3>
+                            <div className="score-container">
+                                <h3 className="currentScore">current score: {currentScore}</h3>
+                                <h3 className="highScore">high score: {highestScore}</h3>
+                            </div>
                             <Flashcard birdSpecies={birdSpecies[currentCardIndex]} onNext={handleNextCard} onCorrect={handleCorrectAnswer} />
                         </div>
                     )

@@ -24,18 +24,18 @@ function Homepage() {
       <header className="homepage-header">
         <img src={birdnerd} className="homepage-logo" alt="logo" />
         <form className="location-form" onSubmit={handleSubmit}>
-            <label htmlFor="location">Choose a region in the United States:</label>
+          <div className="select-container">
+            <label htmlFor="location">Choose a region: </label>
             <select name="location" id="location" onChange={handleChange}>
               <option value="backyardBirds">Backyard Birds</option>
               <option value="eastern">Eastern</option>
               <option value="western">Western</option>
             </select>
-            Ready to name that Bird Call?
-            <button type="submit" className="link">Start</button>
+            </div>
+  
+            <button type="submit" className="button-format">Start</button>
         </form>
-        <p>
-          
-        </p>
+
       </header>
     </div>
     )

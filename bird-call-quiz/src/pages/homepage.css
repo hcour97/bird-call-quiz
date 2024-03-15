@@ -1,9 +1,30 @@
-/* .link {
-  text-decoration: none;
-} */
+form {
+  font-family: monospace;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+button {
+  margin-top: 10px;
+  font-family: monospace;
+}
+
+.select-container {
+  display: flex;
+  align-items: center;
+  font-family: monospace;
+}
+
+
 
 .homepage {
     text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   
   .homepage-logo {
@@ -18,7 +39,7 @@
   }
   
   .homepage-header {
-    background-color: #282c34;
+    background-color: #4f81c7;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -28,9 +49,9 @@
     color: white;
   }
   
-  .homepage-link {
+  /* .homepage-link {
     color: #61dafb;
-  }
+  } */
   
   @keyframes App-logo-spin {
     from {
