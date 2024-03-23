@@ -1,3 +1,19 @@
+body {
+  background-color: #4f81c7;
+  font-family: monospace;
+}
+
+.score-container {
+  color:white;
+}
+
+.button-format {
+  border: 5px solid #5e9aef;
+  border-radius: 8px;
+  background-color: #4f81c7;
+  color: white;
+}
+
 .App {
   text-align: center;
 }
@@ -14,7 +30,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

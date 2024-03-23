@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {shuffle} from "../helpers";
+import "./style-pages.css";
 
 import { backyardBirds, eastern, western } from "../common/birdSpecies";
 import Flashcard from "./Flashcard";
