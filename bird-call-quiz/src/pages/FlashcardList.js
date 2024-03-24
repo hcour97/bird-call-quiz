@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {shuffle} from "../helpers";
+// import {shuffle} from "../helpers";
 import "./style-pages.css";
 
 import { backyardBirds, eastern, western } from "../common/birdSpecies";
@@ -31,19 +31,20 @@ function FlashcardList() {
 
     // find appropriate bird species list based on the selected region
     useEffect(() => {
+        console.debug("birdSpecies List=", birdSpecies);
         switch (region) {
             case "eastern":
-                setBirdSpecies(shuffle(eastern));
+                setBirdSpecies(eastern);
                 break;
             case "western":
-                setBirdSpecies(shuffle(western));
+                setBirdSpecies(western);
                 break;
             case "backyardBirds":
             default:
-                setBirdSpecies(shuffle(backyardBirds));
+                setBirdSpecies(backyardBirds);
                 break;
         }
-    });
+    }, [birdSpecies, region]);
 
     useEffect(() => {
         // on component mount, retrieve highest score from localStorage
@@ -51,10 +52,10 @@ function FlashcardList() {
         if (storedHighestScore !== null) {
             setHighestScore(parseInt(storedHighestScore));
         }
-    })
+    }, []);
 
+// update highest score in localStorage if current score beats it
     useEffect(() => {
-        // update highest score in localStorage if current score beats it
         if (currentScore > highestScore) {
             localStorage.setItem('highestScore', currentScore.toString());
             setHighestScore(currentScore);
@@ -68,8 +69,6 @@ function FlashcardList() {
     function handleNextCard() {
         if (currentCardIndex < birdSpecies.length - 1) {
             setCurrentCardIndex(currentCardIndex + 1);
-        // if the correct answer button was pressed, increase score by 10
-            //handleCorrectAnswer();
         } else {
             setGameOver(true);
         }

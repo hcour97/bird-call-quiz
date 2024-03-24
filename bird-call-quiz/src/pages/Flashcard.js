@@ -7,9 +7,6 @@ function Flashcard({ birdSpecies, onNext, onCorrect }) {
     console.debug("Flashcard", "birdSpecies=", birdSpecies);
 
    const audioRef = useRef(null);  // useRef() is a React Hook that lets you reference the value that is not needed for rendering.
-//    const flipTimeoutRef = useRef();
-//    const [nextCard, setNextCard] = useState(null);
-
    const [isFlipped, setIsFlipped] = useState(false);
    const [isLoading, setIsLoading] = useState(false);
    const [currentAudioUrl, setCurrentAudioUrl] = useState(false);
@@ -35,11 +32,20 @@ function Flashcard({ birdSpecies, onNext, onCorrect }) {
         }
     }
 
+    // useEffect(() => {
+    //     if (!isLoading) {
+    //         setIsFlipped(false);
+    //     }
+    // }, [isLoading]);
+
     const handleNextCard = () => {
         console.debug("Flashcard", "handleNextCard", "onNext")
         setIsLoading(true);
-        onNext();
-        } 
+        setTimeout(() => {
+            setIsLoading(false);
+            onNext();
+        }, 1000)
+    } 
     
     useEffect(() => {
         if (isFlipped && audioRef.current) {
