@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# Bird Call Quiz
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+Bird Call Quiz is designed to help users learn common bird species' calls based on regions in the United States. The project utilizes Node.js and React.js to provide an interactive learning experience.
 
-## Available Scripts
+## Installation
+To install the project, follow these steps:
+1. Download the code from GitHub.
+2. Navigate to the `bird-call-quiz` folder.
+3. Run `npm install` to install all dependencies.
+4. Once the dependencies are installed, run `npm start` to view the React project in the browser.
 
-In the project directory, you can run:
+## Usage
 
-### `npm start`
+To embark on the bird call learning journey, users first select a region they wish to explore. Once selected, they are welcomed with their first bird call identification.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Each quiz session begins with a notecard adorned with a play button, with a click, the song of a bird species native to the chosen region is heard.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Listeners are then invited to venture a guess, flipping the card to reveal the identity of the unseen songster. A simple choice follows: press the button of victory if correct, or the red button for incorrect. With each decision, the next avian melody will present itself.
 
-### `npm test`
+Upon completing the set, users are greeted with the end where they learn whether they've beat their previous high score or if there's still room to soar higher. With options to replay the set for mastery or return to the serene sanctuary of the homepage to embark on another adventure, the journey of bird call discovery continues.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Features
+- Utilizes the xeno-canto wildlife API to fetch birdcalls.
+- Tracks users' scores based on quiz performance.
+- Maintains a high score (stored in local storage) for users to view.
+- Caches API calls to improve performance on subsequent uses.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contact
+For questions, feedback, or support, feel free to contact Hannah at hcour97@gmail.com
