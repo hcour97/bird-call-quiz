@@ -1,7 +1,7 @@
 # Bird Call Quiz
 
 ## Description
-Bird Call Quiz is designed to help users learn common bird species' calls based on regions in the United States. The project utilizes Node.js and React.js to provide an interactive learning experience.
+Bird Call Quiz is designed to help users learn common bird species' calls based on regions in the United States. The project utilizes Node.js and React.js and xeno-canto wildlife sounds API to provide an interactive learning experience.
 
 ## Installation
 To install the project, follow these steps:
